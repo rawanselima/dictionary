@@ -97,33 +97,6 @@
       .developer-info a:hover {
         text-decoration: underline;
       }
-
-      .theme-button {
-        position: absolute;
-        top: -15px;
-        right: -15px;
-        background-color: var(--card-bg);
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.3s ease;
-      }
-
-      .theme-button img {
-        width: 24px;
-        height: 24px;
-      }
-
-      .theme-button:hover {
-        background-color: var(--button-hover);
-      }
-
       #words-container {
         display: flex;
         flex-direction: column;
@@ -156,13 +129,6 @@
   </head>
   <body>
     <div class="card">
-      <button
-        class="theme-button"
-        aria-label="Change Theme"
-        onclick="changeTheme()"
-      >
-        <img src="./sound-removebg-preview.png" alt="Theme Icon" />
-      </button>
       <div id="words-container">
         <!-- Words will be dynamically injected here -->
       </div>
