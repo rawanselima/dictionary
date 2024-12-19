@@ -1,239 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random Word Generator</title>
     <style>
-        :root {
-            --bg-color: #f0f2f5;
-            --card-bg: #ffffff;
-            --primary-color: #009688;
-            --text-color: #333333;
-            --subtitle-color: #666666;
-            --button-hover: #00796b;
-        }
+      :root {
+        --bg-color: #f0f2f5;
+        --card-bg: #213555;
+        --primary-color: #3e5879;
+        --text-color: #213555;
+        --subtitle-color: #666666;
+        --button-hover: #00796b;
+      }
 
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s ease;
-        }
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+        transition: background-color 0.3s ease;
+      }
 
-        .card {
-            position: relative;
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-            margin-bottom: 20px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+      .card {
+        position: relative;
+        background-color: #213555;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
 
-        .card h2 {
-            margin: 0;
-            font-size: 28px;
-            color: var(--primary-color);
-        }
+      .card h2 {
+        margin: 0;
+        font-size: 28px;
+        color: var(--primary-color);
+      }
 
-        button {
-            margin-top: 20px;
-            padding: 12px 24px;
-            border: none;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+      button {
+        margin-top: 20px;
+        padding: 12px 24px;
+        border: none;
+        background-color: #eb6440;
+        color: white;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-        button:hover {
-            background-color: var(--button-hover);
-        }
+      button:not(.audio-btn):hover {
+        background-color: #b45034;
+      }
 
-        .audio-btn {
-            cursor: pointer;
-            margin-left: 15px;
-            vertical-align: middle;
-            transition: opacity 0.3s ease;
-            border: none;
-            background: none;
-        }
+      .audio-btn {
+        cursor: pointer;
+        margin-left: 15px;
+        vertical-align: middle;
+        transition: opacity 0.3s ease;
+        border: none;
+        background: none;
+      }
+      .audio-btn:hover img {
+        transform: scale(1.2);
+      }
 
-        .audio-btn img {
-            width: 30px;
-            height: 30px;
-        }
+      .audio-btn img {
+        /* width: 30px;
+        height: 30px; */
+        width: 100%;
+        height: 90px;
+        transition: 0.3s;
+      }
 
-        .audio-btn:hover {
-            opacity: 0.7;
-        }
+      .developer-info {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 16px;
+        color: var(--subtitle-color);
+      }
 
-        .developer-info {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 16px;
-            color: var(--subtitle-color);
-        }
+      .developer-info a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: bold;
+      }
 
-        .developer-info a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
-        }
+      .developer-info a:hover {
+        text-decoration: underline;
+      }
 
-        .developer-info a:hover {
-            text-decoration: underline;
-        }
+      .theme-button {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: var(--card-bg);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+      }
 
-        .theme-button {
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            background-color: var(--card-bg);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s ease;
-        }
+      .theme-button img {
+        width: 24px;
+        height: 24px;
+      }
 
-        .theme-button img {
-            width: 24px;
-            height: 24px;
-        }
+      .theme-button:hover {
+        background-color: var(--button-hover);
+      }
 
-        .theme-button:hover {
-            background-color: var(--button-hover);
-        }
+      #words-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
 
-        #words-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+      .word-entry {
+        padding: 10px;
+        background-color: #f5efe7;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-        .word-entry {
-            padding: 10px;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+      .word-entry h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #3e5879;
+      }
 
-        .word-entry h3 {
-            margin: 0;
-            font-size: 20px;
-            color: var(--primary-color);
-        }
-
-        .word-entry p {
-            margin: 0;
-            font-size: 16px;
-            color: var(--subtitle-color);
-        }
+      .word-entry p {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+        color: #eb6440;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="card">
-        <button class="theme-button" aria-label="Change Theme" onclick="changeTheme()">
-            <img src="https://cdn.iconscout.com/icon/premium/png-512-thumb/theme-5126041-4275340.png?f=webp&w=256" alt="Theme Icon">
-        </button>
-        <div id="words-container">
-            <!-- Words will be dynamically injected here -->
-        </div>
-        <button onclick="getRandomWords()" aria-label="Get New Words">Get New Words</button>
+      <button
+        class="theme-button"
+        aria-label="Change Theme"
+        onclick="changeTheme()"
+      >
+        <img src="./sound-removebg-preview.png" alt="Theme Icon" />
+      </button>
+      <div id="words-container">
+        <!-- Words will be dynamically injected here -->
+      </div>
+      <button onclick="getRandomWords()" aria-label="Get New Words">
+        Get New Words
+      </button>
     </div>
 
     <script>
-        let wordsList = [];
-    
-        const colorPalettes = [
-            { bg: "#f0f2f5", card: "#ffffff", primary: "#009688", text: "#333333", subtitle: "#666666", hover: "#00796b" },
-            { bg: "#f7f7f7", card: "#ffffff", primary: "#e91e63", text: "#212121", subtitle: "#757575", hover: "#c2185b" }
-        ];
-    
-        function changeTheme() {
-            const randomPalette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
-            applyTheme(randomPalette);
-            localStorage.setItem('theme', JSON.stringify(randomPalette));
+      let wordsList = [];
+
+      const colorPalettes = [
+        {
+          bg: "#f0f2f5",
+          card: "#ffffff",
+          primary: "#009688",
+          text: "#333333",
+          subtitle: "#666666",
+          hover: "#00796b",
+        },
+        {
+          bg: "#f7f7f7",
+          card: "#ffffff",
+          primary: "#e91e63",
+          text: "#212121",
+          subtitle: "#757575",
+          hover: "#c2185b",
+        },
+      ];
+
+      function changeTheme() {
+        const randomPalette =
+          colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+        applyTheme(randomPalette);
+        localStorage.setItem("theme", JSON.stringify(randomPalette));
+      }
+
+      function loadSavedTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+          applyTheme(JSON.parse(savedTheme));
         }
-    
-        function loadSavedTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                applyTheme(JSON.parse(savedTheme));
-            }
+      }
+
+      function applyTheme(palette) {
+        document.documentElement.style.setProperty("--bg-color", palette.bg);
+        document.documentElement.style.setProperty("--card-bg", palette.card);
+        document.documentElement.style.setProperty(
+          "--primary-color",
+          palette.primary
+        );
+      }
+
+      async function loadWords() {
+        try {
+          const response = await fetch("text.txt");
+          if (!response.ok) throw new Error("Words file not found");
+          const text = await response.text();
+          wordsList = text
+            .split("\n")
+            .filter((line) => line)
+            .map((line) => {
+              const [english, arabic] = line.split("|");
+              return { english: english.trim(), arabic: arabic.trim() };
+            });
+          getRandomWords();
+        } catch (error) {
+          console.error("Error loading words:", error);
         }
-    
-        function applyTheme(palette) {
-            document.documentElement.style.setProperty('--bg-color', palette.bg);
-            document.documentElement.style.setProperty('--card-bg', palette.card);
-            document.documentElement.style.setProperty('--primary-color', palette.primary);
-        }
-    
-        async function loadWords() {
-            try {
-                const response = await fetch('text.txt');
-                if (!response.ok) throw new Error('Words file not found');
-                const text = await response.text();
-                wordsList = text.split('\n').filter(line => line).map(line => {
-                    const [english, arabic] = line.split('|');
-                    return { english: english.trim(), arabic: arabic.trim() };
-                });
-                getRandomWords();
-            } catch (error) {
-                console.error('Error loading words:', error);
-            }
-        }
-    
-        function getRandomWords() {
-            const container = document.getElementById('words-container');
-            container.innerHTML = '';
-            const selectedWords = wordsList.sort(() => 0.5 - Math.random()).slice(0, 10);
-            selectedWords.forEach(word => {
-                const entry = document.createElement('div');
-                entry.className = 'word-entry';
-                entry.innerHTML = `
+      }
+
+      function getRandomWords() {
+        const container = document.getElementById("words-container");
+        container.innerHTML = "";
+        const selectedWords = wordsList
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 10);
+        selectedWords.forEach((word) => {
+          const entry = document.createElement("div");
+          entry.className = "word-entry";
+          entry.innerHTML = `
                     <div>
                         <h3>${word.english}</h3>
                         <p>${word.arabic}</p>
                     </div>
                     <button class="audio-btn" onclick="playAudio('${word.english}')">
-                        <img src="https://cdn.iconscout.com/icon/premium/png-512-thumb/sound-4465040-3703068.png?f=webp&w=256" alt="Sound Icon">
+                        <img src="./sound-removebg-preview.png" alt="Sound Icon">
                     </button>
                 `;
-                container.appendChild(entry);
-            });
-        }
-    
-        function playAudio(word) {
-            const msg = new SpeechSynthesisUtterance(word);
-            msg.lang = 'en-US';
-            window.speechSynthesis.speak(msg);
-        }
-    
-        window.onload = () => {
-            loadSavedTheme();
-            loadWords();
-        };
+          container.appendChild(entry);
+        });
+      }
+
+      function playAudio(word) {
+        const msg = new SpeechSynthesisUtterance(word);
+        msg.lang = "en-US";
+        window.speechSynthesis.speak(msg);
+      }
+
+      window.onload = () => {
+        loadSavedTheme();
+        loadWords();
+      };
     </script>
-</body>
+  </body>
 </html>
